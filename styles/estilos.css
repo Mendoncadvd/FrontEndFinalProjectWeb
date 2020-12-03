@@ -1,0 +1,44 @@
+body {
+    background-color: rgba(250, 251, 253, 0.877);
+}
+h2 {
+    text-align: center;
+    font-size: 50px;
+}
+
+#tituloPrincipal {
+    border: solid blue;
+    border-radius: 10px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 10px;
+
+}
+
+#sectionPrincipal {
+    display: flex;
+    justify-content: center;
+}
+
+/* #section1 {    
+    border: solid 2px blue;
+    border-radius: 10px;
+} */
+
+#p1 {
+    font-size: 20px;
+}
+
+/* #section2{
+    border: solid 2px blue;
+    border-radius: 10px;
+} */
+
+.listaButton {
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+
+
+
