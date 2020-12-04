@@ -160,13 +160,16 @@ function alteraInfo() {
 }
 
 function deletaInfo() {
-    var idDelecao = ("#idDelecao").val();
+    var idDelecao = $("#idDelecao").val();
     var confirmacao = confirm("Você realmente quer apagar as informações da id" + idDelecao)
     if (confirmacao == true) {
         $.ajax({
         type:'DELETE',
         url: "http://localhost:9000/datacontrol/apagar/" + idDelecao,
-        success: alert("Informação da id" + idDelecao + "deletada com sucesso") 
+        success: function () {
+            pegaDados();
+            alert("Informação da id" + idDelecao + "deletada com sucesso");
+        }
 
         })
     }
