@@ -31,7 +31,7 @@ function cadastrar() {
 var campoAlteracoes =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja alterar informações</p>' +
-    '<input name="idAlteracao" type="number" placeholder="id"><br>' +
+    '<input id="idAlteracao" type="number" placeholder="id"><br>' +
     '<input type="button" value="enviar" id="enviar" onclick="show()">' +
     '<button onclick="show()">Reset</button>' +
     '</div>';
@@ -71,31 +71,32 @@ function pegaDados() {
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getTodos",
-        success: function(informacoes) {
-            $.each(informacoes, function(i, informacoes) {
-                $("#section2").append(
-                    "<table id='tabela'>"+
-                        "<tr>"+
-                        "<th>Login</th>"+
-                        "<th>Senha</th>"+
-                        "<th>Nome Completo</th>"+
-                        "<th>CPF</th>"+
-                        "<th>Nascimento</th>"+
-                        "<th>Sexo</th>"+
-                        "<th>Estado Civil</th>"+ 
-                        "</tr>"+
-                        "<tr id = '"+ informacoes.id + "'>" +
-                            "<td>" + informacoes.login + "</td>" +
-                            "<td>" + informacoes.senha + "</td>" +
-                            "<td>" + informacoes.nomeCompleto + "</td>" +
-                            "<td>" + informacoes.cpf + "</td>" +
-                            "<td>" + informacoes.nascimento + "</td>" +
-                            "<td>" + informacoes.sexo + "</td>" +
-                            "<td>" + informacoes.estadoCivil + "</td>"  +
-                        "</tr>" +
-                    "</table>"
-                )
-            });
+        success: function (informacoes) {
+            $("#tabela").empty(),
+                $("#tabela").append(
+                    '<tr>' +
+                    '<th>Login</th>' +
+                    '<th>Senha</th>' +
+                    '<th>Nome Completo</th>' +
+                    '<th>CPF</th>' +
+                    '<th>Nascimento</th>' +
+                    '<th>Sexo</th>' +
+                    '<th>Estado Civil</th>' +
+                    '</tr>'
+                ),
+                $.each(informacoes, function (informacoes) {
+                    $("#tabela").append(
+                        "<tr id = '" + informacoes.id + "'>" +
+                        "<td>" + informacoes.login + "</td>" +
+                        "<td>" + informacoes.senha + "</td>" +
+                        "<td>" + informacoes.nomeCompleto + "</td>" +
+                        "<td>" + informacoes.cpf + "</td>" +
+                        "<td>" + informacoes.nascimento + "</td>" +
+                        "<td>" + informacoes.sexo + "</td>" +
+                        "<td>" + informacoes.estadoCivil + "</td>" +
+                        "</tr>"
+                    )
+                });
         }
     })
 }
@@ -126,7 +127,6 @@ function enviarDados() {
             "estadoCivil": estadoCivil
         }),
         success: function() {
-            $("#tabela").remove();
             pegaDados();
         }
     })
@@ -141,8 +141,21 @@ function enviarDados() {
 }
 
 function alteraInfo() {
-    
+    var idAlteracao = parseInt($("#idAlteracao").val());
     $.ajax({
-
+        type:'GET',
+        url: "http://localhost:9000/datacontrol/getUser/" + idAlteracao,
+        success: function(informacoes) {
+            $("#divNova").hide();
+            $("#idAlteracao").val("");
+            $("#login").val(informacoes.login);
+            $("#senha").val(informacoes.senha);
+            $("#nomeCompleto").val(informacoes.nomeCompleto);
+            $("#cpf").val(informacoes.cpf);
+            $("#dataNascimento").val(informacoes.dataNascimento);
+            $("#sexo").val(informacoes.sexo);
+            $("#estadoCivil").val(informacoes.estadoCivil);
+            $("#userInput").show();
+        } 
     })
 }
