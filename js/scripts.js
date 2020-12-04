@@ -14,7 +14,7 @@
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#userInput").hide();
     pegaDados();
 })
@@ -84,7 +84,7 @@ function pegaDados() {
                     '<th>Estado Civil</th>' +
                     '</tr>'
                 ),
-                $.each(informacoes, function (informacoes) {
+                $.each(informacoes, function (i, informacoes) {
                     $("#tabela").append(
                         "<tr id = '" + informacoes.id + "'>" +
                         "<td>" + informacoes.login + "</td>" +
@@ -111,7 +111,7 @@ function enviarDados() {
     var dataNascimento = $("#dataNascimento").val();
     var sexo = $("#sexo").val();
     var estadoCivil = $("#estadoCivil").val();
-    
+
     $.ajax({
         type: 'POST',
         url: "http://localhost:9000/datacontrol/postAddUser",
@@ -126,7 +126,7 @@ function enviarDados() {
             "sexo": sexo,
             "estadoCivil": estadoCivil
         }),
-        success: function() {
+        success: function () {
             pegaDados();
         }
     })
@@ -143,9 +143,9 @@ function enviarDados() {
 function alteraInfo() {
     var idAlteracao = parseInt($("#idAlteracao").val());
     $.ajax({
-        type:'GET',
+        type: 'GET',
         url: "http://localhost:9000/datacontrol/getUser/" + idAlteracao,
-        success: function(informacoes) {
+        success: function (informacoes) {
             $("#divNova").hide();
             $("#idAlteracao").val("");
             $("#login").val(informacoes.login);
@@ -156,6 +156,6 @@ function alteraInfo() {
             $("#sexo").val(informacoes.sexo);
             $("#estadoCivil").val(informacoes.estadoCivil);
             $("#userInput").show();
-        } 
+        }
     })
 }
