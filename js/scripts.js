@@ -71,12 +71,22 @@ function pegaDados() {
 
     $.ajax({
         type: 'GET',
-        url: "",
-        contentType: "?",
-        dataType: "?",
-        
-
-
+        url: "http://localhost:9000/datacontrol/getTodos",
+        success: function(informacoes) {
+            $.each(informacoes, function(i, informacoes) {
+                $("#tabela").append(
+                    "<tr id = '"+ informacoes.id + "'>" +
+                        "<td>" + informacoes.login + "</td>" +
+                        "<td>" + informacoes.senha + "</td>" +
+                        "<td>" + informacoes.nomeCompleto + "</td>" +
+                        "<td>" + informacoes.cpf + "</td>" +
+                        "<td>" + informacoes.nascimento + "</td>" +
+                        "<td>" + informacoes.sexo + "</td>" +
+                        "<td>" + informacoes.estadoCivil + "</td>" +
+                    "</tr>"
+                )
+            });
+        }
     })
 }
 
@@ -105,7 +115,7 @@ function enviarDados() {
             "sexo": sexo,
             "estadoCivil": estadoCivil
         }),
-        success: function () { alert("sucesso!") }
+
     })
     show();
     $("#login").val("");
