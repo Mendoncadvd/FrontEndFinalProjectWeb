@@ -31,7 +31,7 @@ function cadastrar() {
 var campoAlteracoes =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja alterar informações</p>' +
-    '<input name="id" type="number" placeholder="id"><br>' +
+    '<input name="idAlteracao" type="number" placeholder="id"><br>' +
     '<input type="button" value="enviar" id="enviar" onclick="show()">' +
     '<button onclick="show()">Reset</button>' +
     '</div>';
@@ -46,7 +46,7 @@ function alterar() {
 var campoDelecao =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja deletar as informações</p>' +
-    '<input name="id" type="number" placeholder="id"><br>' +
+    '<input name="idDelecao" type="number" placeholder="id"><br>' +
     '<input type="button" value="enviar" id="enviar" onclick="show()">' +
     '<button onclick="show()">Reset</button>' +
     '</div>';
@@ -140,8 +140,8 @@ function enviarDados() {
     $("#estadoCivil").val("");
 }
 
-function deletarInfo() {
-
+function alteraInfo() {
+    
     $.ajax({
 
     })
