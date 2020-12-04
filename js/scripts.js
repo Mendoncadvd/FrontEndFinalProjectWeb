@@ -32,7 +32,7 @@ var campoAlteracoes =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja alterar informações</p>' +
     '<input id="idAlteracao" type="number" placeholder="id"><br>' +
-    '<input type="button" value="enviar" id="enviar" onclick="show()">' +
+    '<input type="button" value="enviar" id="enviar" onclick="alteraInfo()">' +
     '<button onclick="show()">Reset</button>' +
     '</div>';
 
@@ -46,8 +46,8 @@ function alterar() {
 var campoDelecao =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja deletar as informações</p>' +
-    '<input name="idDelecao" type="number" placeholder="id"><br>' +
-    '<input type="button" value="enviar" id="enviar" onclick="show()">' +
+    '<input id="idDelecao" type="number" placeholder="id"><br>' +
+    '<input type="button" value="enviar" id="enviar" onclick="deletaInfo()">' +
     '<button onclick="show()">Reset</button>' +
     '</div>';
 
@@ -102,7 +102,6 @@ function pegaDados() {
 }
 
 /* função POST */
-/* tratar caso o usuario digite um campo vazio */
 function enviarDados() {
     var login = $("#login").val();
     var senha = $("#senha").val();
@@ -141,7 +140,7 @@ function enviarDados() {
 }
 
 function alteraInfo() {
-    var idAlteracao = parseInt($("#idAlteracao").val());
+    var idAlteracao = $("#idAlteracao").val();
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getUser/" + idAlteracao,
@@ -158,4 +157,17 @@ function alteraInfo() {
             $("#userInput").show();
         }
     })
+}
+
+function deletaInfo() {
+    var idDelecao = ("#idDelecao").val();
+    var confirmacao = confirm("Você realmente quer apagar as informações da id" + idDelecao)
+    if (confirmacao == true) {
+        $.ajax({
+        type:'DELETE',
+        url: "http://localhost:9000/datacontrol/apagar/" + idDelecao,
+        success: alert("Informação da id" + idDelecao + "deletada com sucesso") 
+
+        })
+    }
 }
