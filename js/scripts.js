@@ -75,15 +75,17 @@ function pegaDados() {
         success: function(informacoes) {
             $.each(informacoes, function(i, informacoes) {
                 $("#tabela").append(
-                    "<tr id = '"+ informacoes.id + "'>" +
-                        "<td>" + informacoes.login + "</td>" +
-                        "<td>" + informacoes.senha + "</td>" +
-                        "<td>" + informacoes.nomeCompleto + "</td>" +
-                        "<td>" + informacoes.cpf + "</td>" +
-                        "<td>" + informacoes.nascimento + "</td>" +
-                        "<td>" + informacoes.sexo + "</td>" +
-                        "<td>" + informacoes.estadoCivil + "</td>" +
-                    "</tr>"
+                    "<div id = 'divAdicional'>" +
+                        "<tr id = '"+ informacoes.id + "'>" +
+                            "<td>" + informacoes.login + "</td>" +
+                            "<td>" + informacoes.senha + "</td>" +
+                            "<td>" + informacoes.nomeCompleto + "</td>" +
+                            "<td>" + informacoes.cpf + "</td>" +
+                            "<td>" + informacoes.nascimento + "</td>" +
+                            "<td>" + informacoes.sexo + "</td>" +
+                            "<td>" + informacoes.estadoCivil + "</td>"  +
+                        "</tr>" +
+                    "</div>"
                 )
             });
         }
@@ -115,7 +117,10 @@ function enviarDados() {
             "sexo": sexo,
             "estadoCivil": estadoCivil
         }),
-
+        success: function() {
+            $("#divAdicional").remove();
+            pegaDados();
+        }
     })
     show();
     $("#login").val("");
