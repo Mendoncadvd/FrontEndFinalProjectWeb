@@ -68,14 +68,22 @@ function show() {
 
 /* função GET adicionar document.ready*/
 function pegaDados() {
-
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getTodos",
         success: function(informacoes) {
             $.each(informacoes, function(i, informacoes) {
-                $("#tabela").append(
-                    "<div id = 'divAdicional'>" +
+                $("#section2").append(
+                    "<table id='tabela'>"+
+                        "<tr>"+
+                        "<th>Login</th>"+
+                        "<th>Senha</th>"+
+                        "<th>Nome Completo</th>"+
+                        "<th>CPF</th>"+
+                        "<th>Nascimento</th>"+
+                        "<th>Sexo</th>"+
+                        "<th>Estado Civil</th>"+ 
+                        "</tr>"+
                         "<tr id = '"+ informacoes.id + "'>" +
                             "<td>" + informacoes.login + "</td>" +
                             "<td>" + informacoes.senha + "</td>" +
@@ -85,7 +93,7 @@ function pegaDados() {
                             "<td>" + informacoes.sexo + "</td>" +
                             "<td>" + informacoes.estadoCivil + "</td>"  +
                         "</tr>" +
-                    "</div>"
+                    "</table>"
                 )
             });
         }
@@ -118,7 +126,7 @@ function enviarDados() {
             "estadoCivil": estadoCivil
         }),
         success: function() {
-            $("#divAdicional").remove();
+            $("#tabela").remove();
             pegaDados();
         }
     })
@@ -132,3 +140,9 @@ function enviarDados() {
     $("#estadoCivil").val("");
 }
 
+function deletarInfo() {
+
+    $.ajax({
+
+    })
+}
