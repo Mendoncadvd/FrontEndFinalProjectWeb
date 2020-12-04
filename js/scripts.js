@@ -1,19 +1,3 @@
-
-/* var camposCadastro =
-    '<div id="divNova">' +
-    '<input name="login" type="text" placeholder="Login"><br>' +
-    '<input name="senha" type="text" placeholder="Senha"><br>' +
-    '<input name="nomeCompleto" type="text" placeholder="Nome Completo"><br>' +
-    '<input name="cpf" type="number" placeholder="CPF"><br>' +
-    '<input name="nascimento" type="date" placeholder="Nascimento"><br>' +
-    '<input name="sexo" type="text" placeholder="Sexo"><br>' +
-    '<input name="estadoCivil" type="text" placeholder="Estado Civil"><br>' +
-    '<input type="submit" value="Enviar" id="enviar" onclick="show()">' +
-    '<button onclick="show()">Reset</button>' +
-    '</div>'; */
-
-
-
 $(document).ready(function () {
     $("#userInput").hide();
     pegaDados();
@@ -25,7 +9,6 @@ function cadastrar() {
     $("#altera").hide();
     $("#deleta").hide();
     $("#userInput").show();
-
 }
 
 var campoAlteracoes =
@@ -161,14 +144,14 @@ function alteraInfo() {
 
 function deletaInfo() {
     var idDelecao = $("#idDelecao").val();
-    var confirmacao = confirm("Você realmente quer apagar as informações da id" + idDelecao)
+    var confirmacao = confirm("Você realmente quer apagar as informações da id-" + idDelecao)
     if (confirmacao == true) {
         $.ajax({
         type:'DELETE',
         url: "http://localhost:9000/datacontrol/apagar/" + idDelecao,
         success: function () {
             pegaDados();
-            alert("Informação da id" + idDelecao + "deletada com sucesso");
+            alert("Informação da id-" + idDelecao + "deletada com sucesso");
         }
 
         })
