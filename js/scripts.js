@@ -15,7 +15,7 @@ var campoAlteracoes =
     '<p>Digite o id do usuário que deseja alterar informações</p>' +
     '<input id="idAlteracao" type="number" placeholder="id"><br>' +
     '<input type="button" value="enviar" id="enviar" onclick="alteraInfo()">' +
-    '<button onclick="show()">Reset</button>' +
+    '<button onclick="show()">Voltar</button>' +
     '</div>';
 
 function alterar() {
@@ -30,7 +30,7 @@ var campoDelecao =
     '<p>Digite o id do usuário que deseja deletar as informações</p>' +
     '<input id="idDelecao" type="number" placeholder="id"><br>' +
     '<input type="button" value="enviar" id="enviar" onclick="deletaInfo()">' +
-    '<button onclick="show()">Reset</button>' +
+    '<button onclick="show()">Voltar</button>' +
     '</div>';
 
 function deletar() {
@@ -96,7 +96,7 @@ function enviarDados() {
 
     if (login == "" || senha == "" || nomeCompleto == "" || cpf == NaN || dataNascimento == "" ||
         sexo == "" || estadoCivil == "") {
-        alert("Um dos campos não está preenchido!")
+        alert("Pelo menos um dos campos não está preenchido!")
     } else {
         $.ajax({
             type: 'POST',
