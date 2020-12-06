@@ -85,6 +85,7 @@ function pegaDados() {
 
 /* função POST */
 function enviarDados() {
+    $("#enviarPUT").hide();
     var login = $("#login").val();
     var senha = $("#senha").val();
     var nomeCompleto = $("#nomeCompleto").val();
@@ -93,38 +94,45 @@ function enviarDados() {
     var sexo = $("#sexo").val();
     var estadoCivil = $("#estadoCivil").val();
 
-    $.ajax({
-        type: 'POST',
-        url: "http://localhost:9000/datacontrol/postAddUser",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-            "login": login,
-            "senha": senha,
-            "nomeCompleto": nomeCompleto,
-            "cpf": cpf,
-            "nascimento": dataNascimento,
-            "sexo": sexo,
-            "estadoCivil": estadoCivil
-        }),
-        success: function() {
-            pegaDados();
-        }
-    })
-    show();
-    $("#login").val("");
-    $("#senha").val("");
-    $("#nomeCompleto").val("");
-    $("#cpf").val("");
-    $("#dataNascimento").val("");
-    $("#sexo").val("");
-    $("#estadoCivil").val("");
+    if (login == "" || senha == "" || nomeCompleto == "" || cpf == NaN || dataNascimento == "" ||
+        sexo == "" || estadoCivil == "") {
+        alert("Um dos campos não está preenchido!")
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:9000/datacontrol/postAddUser",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                "login": login,
+                "senha": senha,
+                "nomeCompleto": nomeCompleto,
+                "cpf": cpf,
+                "nascimento": dataNascimento,
+                "sexo": sexo,
+                "estadoCivil": estadoCivil
+            }),
+            success: function() {
+                pegaDados();
+            }
+        })
+        show();
+        $("#login").val("");
+        $("#senha").val("");
+        $("#nomeCompleto").val("");
+        $("#cpf").val("");
+        $("#dataNascimento").val("");
+        $("#sexo").val("");
+        $("#estadoCivil").val("");
+    }
 }
-/* colocar botão enviar que chama url do PUT
-quando usuario clicar no botao de cadastro, esconde o botão para o put e vice versa
-criar a função do PUT (copiar da função POST) */
+
+/* Função PUT*/
 var idAlteracao = -1;
+
 function alteraInfo() {
+    $("#enviar").hide();
+    $("#enviar").append("<input value='Enviar put' type='submit' id='enviarPUT' onclick='alteraInfoPUT()'>")
     idAlteracao = $("#idAlteracao").val();
     $.ajax({
         type: 'GET',
@@ -147,6 +155,7 @@ function alteraInfo() {
 }
 
 function alteraInfoPUT() {
+
     var login = $("#login").val();
     var senha = $("#senha").val();
     var nomeCompleto = $("#nomeCompleto").val();
@@ -172,6 +181,8 @@ function alteraInfoPUT() {
         success: function() {
             pegaDados();
             alert("Cadastro alterado com sucesso!")
+            $("#enviarPUT").remove();
+            $("#enviar").show();
         }
     })
     show();
