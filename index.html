@@ -42,9 +42,9 @@
             <input name="nascimento" type="date" placeholder="Nascimento" id="dataNascimento"><br>
             <input name="sexo" type="text" placeholder="Sexo" id="sexo"><br>
             <input name="estadoCivil" type="text" placeholder="Estado Civil" id="estadoCivil" required><br>
-            <input value="Enviar cadastro" type="submit" id="enviar" onclick="enviarDados()">
-            <input value="Enviar put" type="submit" id="enviarPUT" onclick="alteraInfoPUT()">
-            <button onclick="show()">Reset</button>
+            <input value="Adicionar Dados" type="submit" id="enviarDados" onclick="enviarDados()">
+            <input value='Alterar Dados' type='submit' id='enviarPUT' onclick='alteraInfoPUT()'>
+            <button onclick="show()">Voltar</button>
         </div>
 
         <div id="criaCampos"></div>
@@ -56,6 +56,7 @@
         <h3>Informações no Banco de Dados</h3>
         <table id="tabela">
             <tr>
+                <th>ID</th>
                 <th>Login</th>
                 <th>Senha</th>
                 <th>Nome Completo</th>

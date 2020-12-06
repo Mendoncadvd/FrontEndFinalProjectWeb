@@ -8,13 +8,15 @@ function cadastrar() {
     $("#altera").hide();
     $("#deleta").hide();
     $("#userInput").show();
+    $("#enviarDados").show();
+    $("#enviarPUT").hide();
 }
 
 var campoAlteracoes =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja alterar informações</p>' +
     '<input id="idAlteracao" type="number" placeholder="id"><br>' +
-    '<input type="button" value="enviar" id="enviar" onclick="alteraInfo()">' +
+    '<input type="button" value="Conferir ID" id="enviarAlterar" onclick="alteraInfo()">' +
     '<button onclick="show()">Voltar</button>' +
     '</div>';
 
@@ -29,7 +31,7 @@ var campoDelecao =
     '<div id="divNova">' +
     '<p>Digite o id do usuário que deseja deletar as informações</p>' +
     '<input id="idDelecao" type="number" placeholder="id"><br>' +
-    '<input type="button" value="enviar" id="enviar" onclick="deletaInfo()">' +
+    '<input type="button" value="Deletar ID" id="enviarDelete" onclick="deletaInfo()">' +
     '<button onclick="show()">Voltar</button>' +
     '</div>';
 
@@ -46,6 +48,13 @@ function show() {
     $("#deleta").show();
     $("#userInput").hide();
     $("#divNova").hide()
+    $("#login").val("");
+    $("#senha").val("");
+    $("#nomeCompleto").val("");
+    $("#cpf").val("");
+    $("#dataNascimento").val("");
+    $("#sexo").val("");
+    $("#estadoCivil").val("");
 }
 
 /* função GET */
@@ -57,6 +66,7 @@ function pegaDados() {
             $("#tabela").empty(),
                 $("#tabela").append(
                     '<tr>' +
+                    '<th>ID</th>' +
                     '<th>Login</th>' +
                     '<th>Senha</th>' +
                     '<th>Nome Completo</th>' +
@@ -69,6 +79,7 @@ function pegaDados() {
                 $.each(informacoes, function(i, informacoes) {
                     $("#tabela").append(
                         "<tr id = '" + informacoes.id + "'>" +
+                        "<td>" + informacoes.id + "</td>" +
                         "<td>" + informacoes.login + "</td>" +
                         "<td>" + informacoes.senha + "</td>" +
                         "<td>" + informacoes.nomeCompleto + "</td>" +
@@ -85,7 +96,6 @@ function pegaDados() {
 
 /* função POST */
 function enviarDados() {
-    $("#enviarPUT").hide();
     var login = $("#login").val();
     var senha = $("#senha").val();
     var nomeCompleto = $("#nomeCompleto").val();
@@ -117,13 +127,6 @@ function enviarDados() {
             }
         })
         show();
-        $("#login").val("");
-        $("#senha").val("");
-        $("#nomeCompleto").val("");
-        $("#cpf").val("");
-        $("#dataNascimento").val("");
-        $("#sexo").val("");
-        $("#estadoCivil").val("");
     }
 }
 
@@ -131,8 +134,8 @@ function enviarDados() {
 var idAlteracao = -1;
 
 function alteraInfo() {
-    $("#enviar").hide();
-    $("#enviar").append("<input value='Enviar put' type='submit' id='enviarPUT' onclick='alteraInfoPUT()'>")
+    $("#enviarDados").hide();
+    $("#enviarPUT").show();
     idAlteracao = $("#idAlteracao").val();
     $.ajax({
         type: 'GET',
@@ -144,12 +147,16 @@ function alteraInfo() {
             $("#senha").val(informacoes.senha);
             $("#nomeCompleto").val(informacoes.nomeCompleto);
             $("#cpf").val(informacoes.cpf);
-            $("#dataNascimento").val(informacoes.dataNascimento);
+            $("#dataNascimento").val(informacoes.nascimento);
             $("#sexo").val(informacoes.sexo);
             $("#estadoCivil").val(informacoes.estadoCivil);
             $("#userInput").show();
-            $("#enviar").hide();
-            $("#enviarPUT").show();
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            if(jqXHR.status == 404) {
+                alert("Não foi encontrado o ID!")
+            }
+            console.log(textStatus + ": " + jqXHR.status + " errorThrown: " + errorThrown);
         }
     })
 }
@@ -181,18 +188,9 @@ function alteraInfoPUT() {
         success: function() {
             pegaDados();
             alert("Cadastro alterado com sucesso!")
-            $("#enviarPUT").remove();
-            $("#enviar").show();
         }
     })
     show();
-    $("#login").val("");
-    $("#senha").val("");
-    $("#nomeCompleto").val("");
-    $("#cpf").val("");
-    $("#dataNascimento").val("");
-    $("#sexo").val("");
-    $("#estadoCivil").val("");
 }
 
 /* Função DELETE */
