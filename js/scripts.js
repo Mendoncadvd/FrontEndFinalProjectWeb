@@ -123,8 +123,9 @@ function enviarDados() {
 /* colocar botão enviar que chama url do PUT
 quando usuario clicar no botao de cadastro, esconde o botão para o put e vice versa
 criar a função do PUT (copiar da função POST) */
+var idAlteracao = -1;
 function alteraInfo() {
-    var idAlteracao = $("#idAlteracao").val();
+    idAlteracao = $("#idAlteracao").val();
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getUser/" + idAlteracao,
@@ -141,12 +142,11 @@ function alteraInfo() {
             $("#userInput").show();
             $("#enviar").hide();
             $("#enviarPUT").show();
-            alteraInfoPUT(idAlteracao);
         }
     })
 }
 
-function alteraInfoPUT(idAlteracao) {
+function alteraInfoPUT() {
     var login = $("#login").val();
     var senha = $("#senha").val();
     var nomeCompleto = $("#nomeCompleto").val();
@@ -170,6 +170,7 @@ function alteraInfoPUT(idAlteracao) {
             "estadoCivil": estadoCivil
         }),
         success: function() {
+            pegaDados();
             alert("Cadastro alterado com sucesso!")
         }
     })
