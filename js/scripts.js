@@ -1,8 +1,7 @@
-$(document).ready(function () {
+$(document).ready(function() {
     $("#userInput").hide();
     pegaDados();
-})
-
+});
 
 function cadastrar() {
     $("#cadastro").hide();
@@ -20,10 +19,10 @@ var campoAlteracoes =
     '</div>';
 
 function alterar() {
-    $("#criaCampos").prepend(campoAlteracoes);
     $("#cadastro").hide();
     $("#altera").hide();
     $("#deleta").hide();
+    $("#criaCampos").prepend(campoAlteracoes);
 }
 
 var campoDelecao =
@@ -49,12 +48,12 @@ function show() {
     $("#divNova").hide()
 }
 
-/* função GET adicionar document.ready*/
+/* função GET */
 function pegaDados() {
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getTodos",
-        success: function (informacoes) {
+        success: function(informacoes) {
             $("#tabela").empty(),
                 $("#tabela").append(
                     '<tr>' +
@@ -67,7 +66,7 @@ function pegaDados() {
                     '<th>Estado Civil</th>' +
                     '</tr>'
                 ),
-                $.each(informacoes, function (i, informacoes) {
+                $.each(informacoes, function(i, informacoes) {
                     $("#tabela").append(
                         "<tr id = '" + informacoes.id + "'>" +
                         "<td>" + informacoes.login + "</td>" +
@@ -108,7 +107,7 @@ function enviarDados() {
             "sexo": sexo,
             "estadoCivil": estadoCivil
         }),
-        success: function () {
+        success: function() {
             pegaDados();
         }
     })
@@ -121,13 +120,15 @@ function enviarDados() {
     $("#sexo").val("");
     $("#estadoCivil").val("");
 }
-
+/* colocar botão enviar que chama url do PUT
+quando usuario clicar no botao de cadastro, esconde o botão para o put e vice versa
+criar a função do PUT (copiar da função POST) */
 function alteraInfo() {
     var idAlteracao = $("#idAlteracao").val();
     $.ajax({
         type: 'GET',
         url: "http://localhost:9000/datacontrol/getUser/" + idAlteracao,
-        success: function (informacoes) {
+        success: function(informacoes) {
             $("#divNova").hide();
             $("#idAlteracao").val("");
             $("#login").val(informacoes.login);
@@ -138,21 +139,62 @@ function alteraInfo() {
             $("#sexo").val(informacoes.sexo);
             $("#estadoCivil").val(informacoes.estadoCivil);
             $("#userInput").show();
+            $("#enviar").hide();
+            $("#enviarPUT").show();
+            alteraInfoPUT(idAlteracao);
         }
     })
 }
 
+function alteraInfoPUT(idAlteracao) {
+    var login = $("#login").val();
+    var senha = $("#senha").val();
+    var nomeCompleto = $("#nomeCompleto").val();
+    var cpf = parseInt($("#cpf").val());
+    var dataNascimento = $("#dataNascimento").val();
+    var sexo = $("#sexo").val();
+    var estadoCivil = $("#estadoCivil").val();
+
+    $.ajax({
+        type: 'PUT',
+        url: "http://localhost:9000/datacontrol/putAlterarPorID/" + idAlteracao,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            "login": login,
+            "senha": senha,
+            "nomeCompleto": nomeCompleto,
+            "cpf": cpf,
+            "nascimento": dataNascimento,
+            "sexo": sexo,
+            "estadoCivil": estadoCivil
+        }),
+        success: function() {
+            alert("Cadastro alterado com sucesso!")
+        }
+    })
+    show();
+    $("#login").val("");
+    $("#senha").val("");
+    $("#nomeCompleto").val("");
+    $("#cpf").val("");
+    $("#dataNascimento").val("");
+    $("#sexo").val("");
+    $("#estadoCivil").val("");
+}
+
+/* Função DELETE */
 function deletaInfo() {
     var idDelecao = $("#idDelecao").val();
     var confirmacao = confirm("Você realmente quer apagar as informações da id-" + idDelecao)
     if (confirmacao == true) {
         $.ajax({
-        type:'DELETE',
-        url: "http://localhost:9000/datacontrol/apagar/" + idDelecao,
-        success: function () {
-            pegaDados();
-            alert("Informação da id-" + idDelecao + "deletada com sucesso");
-        }
+            type: 'DELETE',
+            url: "http://localhost:9000/datacontrol/apagar/" + idDelecao,
+            success: function() {
+                pegaDados();
+                alert("Informação da id-" + idDelecao + "deletada com sucesso");
+            }
 
         })
     }
