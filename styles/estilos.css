@@ -1,44 +1,45 @@
 body {
-    background-color: rgba(250, 251, 253, 0.877);
-}
-h2 {
-    text-align: center;
-    font-size: 50px;
+    background-color: aliceblue;
 }
 
 #tituloPrincipal {
-    border: solid blue;
-    background-color: blue;
-    
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 10px;
-
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 35px;
+    margin-bottom: 40px;
 }
 
 #section1 {
     display: grid;
     justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #section2 {
     display: grid;
     justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-table, th, tr, td{
+h3 {
+    text-align: center
+}
+
+table,
+th,
+tr,
+td {
     border: solid black 1px;
-    font-family: monospace;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-th{
-    background-color: white;
-    
+th {
+    background-color: lightgray;
 }
 
 td {
-   text-align: left;
-   padding-left: 5px;
+    text-align: left;
+    padding-left: 13px;
 }
 
 table {
@@ -46,25 +47,25 @@ table {
     text-align: center;
 }
 
-/* #section1 {    
-    border: solid 2px blue;
-    border-radius: 10px;
-} */
-
 #p1 {
     font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-/* #section2{
-    border: solid 2px blue;
-    border-radius: 10px;
-} */
-
 .listaButton {
-    font-size: 20px;
+    font-size: 19px;
     margin-top: 5px;
 }
 
+#userInput input {
+    margin-top: 2px;
+    width: 181px;
+}
 
+#enviarAlterar {
+    margin-top: 2px;
+}
 
-
+#enviarDelete {
+    margin-top: 2px;
+}

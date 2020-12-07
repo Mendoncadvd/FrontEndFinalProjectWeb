@@ -57,7 +57,6 @@ function show() {
     $("#estadoCivil").val("");
 }
 
-/* função GET */
 function pegaDados() {
     $.ajax({
         type: 'GET',
@@ -94,7 +93,6 @@ function pegaDados() {
     })
 }
 
-/* função POST */
 function enviarDados() {
     var login = $("#login").val();
     var senha = $("#senha").val();
@@ -130,7 +128,6 @@ function enviarDados() {
     }
 }
 
-/* Função PUT*/
 var idAlteracao = -1;
 
 function alteraInfo() {
@@ -152,8 +149,8 @@ function alteraInfo() {
             $("#estadoCivil").val(informacoes.estadoCivil);
             $("#userInput").show();
         },
-        error: function(jqXHR, textStatus, errorThrown){
-            if(jqXHR.status == 404) {
+        error: function(jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 404) {
                 alert("Não foi encontrado o ID!")
             }
             console.log(textStatus + ": " + jqXHR.status + " errorThrown: " + errorThrown);
@@ -162,7 +159,6 @@ function alteraInfo() {
 }
 
 function alteraInfoPUT() {
-
     var login = $("#login").val();
     var senha = $("#senha").val();
     var nomeCompleto = $("#nomeCompleto").val();
@@ -193,7 +189,6 @@ function alteraInfoPUT() {
     show();
 }
 
-/* Função DELETE */
 function deletaInfo() {
     var idDelecao = $("#idDelecao").val();
     var confirmacao = confirm("Você realmente quer apagar as informações da id-" + idDelecao)
