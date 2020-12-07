@@ -3,6 +3,7 @@ body {
 }
 
 #tituloPrincipal {
+    background-color: aquamarine;
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
     margin-top: 35px;
@@ -52,7 +53,7 @@ table {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.listaButton {
+.listaButton button {
     font-size: 19px;
     margin-top: 5px;
 }
